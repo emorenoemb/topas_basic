@@ -1,0 +1,58 @@
+#Programa realizado por Omar Garcia 2024/12/13
+
+
+#######################################################
+sv:Ph/Default/Modules = 1 "g4em-standard_opt4"
+#d:Ph/Default/CutForElectron = 0.01 um 
+
+d:Ge/World/HLX = 5.0 cm 
+d:Ge/World/HLY = 5.0 cm 
+d:Ge/World/HLZ = 10.0 cm 
+s:Ge/World/Material = "G4_WATER"
+Ts/NumberOfThreads = 10
+b:Ts/ShowCPUTime = "True"
+
+################# Source ########################################
+#includeFile = Spectrum.txt
+
+s:So/Example/Type = "Beam" 
+s:So/Example/Component = "BeamPosition"
+s:So/Example/BeamParticle = "gamma"
+d:So/Example/BeamEnergy = 1 MeV 
+u:So/Example/BeamEnergySpread = 0.0
+s:So/Example/BeamPositionDistribution = "Flat"
+s:So/Example/BeamPositionCutoffShape = "Rectangle" 
+d:So/Example/BeamPositionCutoffX = Ge/World/HLX mm
+d:So/Example/BeamPositionCutoffY = Ge/World/HLY mm
+s:So/Example/BeamAngularDistribution = "None" 
+i:So/Example/NumberOfHistoriesInRun = 5000000
+i:Ts/ShowHistoryCountAtInterval = 100000
+
+##################################################################
+
+s:Ge/Phantom/Type = "TsBox"  
+s:Ge/Phantom/Material = "G4_WATER"
+s:Ge/Phantom/Parent = "World"
+
+d:Ge/Phantom/HLX = 2.5 cm 
+d:Ge/Phantom/HLY = 2.5 cm 
+d:Ge/Phantom/HLZ = 1.0 mm
+
+s:Sc/MyScorer/Quantity = "PhaseSpace"
+s:Sc/MyScorer/Component = "Phantom"
+s:Sc/MyScorer/OutputType = "ASCII"
+s:Sc/MyScorer/Surface = "Phantom/ZMinusSurface"
+sv:Sc/MyScorer/OnlyIncludeParticlesNamed = 1 "e-"
+s:Sc/MyScorer/OutputFile = "electron_PHS"
+s:Sc/MyScorer/IfOutputFileAlreadyExists = "Overwrite"
+
+i:Ts/Seed = 10
+Gr/enable = "False"
+s:Gr/ViewA/Type        = "OpenGL"
+i:Gr/ViewA/WindowSizeX = 900
+i:Gr/ViewA/WindowSizeY = 900
+b:Gr/ViewA/IncludeAxes = "True"
+d:Gr/ViewA/AxesSize = 0.5 mm
+d:Gr/ViewA/Theta       = 45 deg
+d:Gr/ViewA/Phi         = 45 deg 
+b:Ts/PauseBeforeQuit = "True"
