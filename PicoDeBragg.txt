@@ -1,0 +1,69 @@
+# Parametros Generales de la Simulacion (Opcional)
+# Programa desarrollado por Johan Retana 2024/12/12
+
+
+Ts/NumberOfThreads              = -1
+b:Ts/ShowCPUTime                = "1"
+i:Ts/Seed                       = 1234
+i:Ts/ShowHistoryCountAtInterval = 10000
+b:Ge/CheckForOverlaps           = "True"
+
+# Parametros de La Fisica
+
+sv:Ph/Default/Modules = 1 "g4em-livermore"
+d:Ph/Default/EMRangeMin = 100. eV
+d:Ph/Default/EMRangeMax = 500. MeV
+d:Ph/Default/SetProductionCutLowerEdge = 200 eV
+d:Ph/Default/SetProductionCutHighEdge  = 30 MeV
+d:Ph/Default/CutForAllParticles = 0.05 mm
+
+# Mundo
+
+d:Ge/World/HLX      = 10 cm
+d:Ge/World/HLY      = 10 cm
+d:Ge/World/HLZ      = 10 cm
+s:Ge/World/Material = "G4_WATER"
+
+# Volumen Sensible
+
+s:Ge/CuboDeAgua/Type     = "TsBox"
+s:Ge/CuboDeAgua/Material = "G4_WATER"
+s:Ge/CuboDeAgua/Parent   = "World"
+d:Ge/CuboDeAgua/HLX      =  5 cm
+d:Ge/CuboDeAgua/HLY      =  5 cm
+d:Ge/CuboDeAgua/HLZ      = 10 cm
+i:Ge/CuboDeAgua/ZBins    = 10
+d:Ge/CuboDeAgua/RotX     = 180 deg
+
+# Detector
+
+s:Sc/Dosis/Quantity                   = "DoseToMedium"
+s:Sc/Dosis/Component                  = "CuboDeAgua"
+s:Sc/Dosis/IfOutputFileAlreadyExists  = "Overwrite"
+sv:Sc/Dosis/Report                    = 2 "Mean" "Standard_Deviation"
+s:Sc/Dosis/OutputFile                 = "Dosis_Default"
+
+s:Sc/Fluencia/Quantity                   = "Fluence"
+s:Sc/Fluencia/Component                  = "CuboDeAgua"
+s:Sc/Fluencia/IfOutputFileAlreadyExists  = "Overwrite"
+sv:Sc/Fluencia/Report                    = 2 "Mean" "Standard_Deviation"
+s:Sc/Fluencia/OutputFile                 = "Fluencia_Default"
+
+# Particula
+s:So/Demo/BeamParticle             = "proton"
+d:So/Demo/BeamEnergy               = 100 MeV
+u:So/Demo/BeamEnergySpread         = 0
+s:So/Demo/BeamPositionDistribution = "None"
+s:So/Demo/BeamAngularDistribution  = "None"
+i:So/Demo/NumberOfHistoriesInRun   = 1000000
+
+#s:Gr/view/Type = "OpenGl"
+#i:Gr/view/WindowSizeX = 1920
+#i:Gr/view/WindowSizeY = 1080
+#d:Gr/view/Theta       = 90 deg
+#d:Gr/view/Phi         = 0 rad
+#u:Gr/view/Zoom        = 1
+#
+#b:Ts/PauseBeforeQuit  = "True"
+#b:Ts/UseQt = "True"
+
